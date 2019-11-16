@@ -1,21 +1,16 @@
-from Board import Board
-
+from Node import Node
+from Search import dfs, bfs, bfs_graph, iterative_deeping
 initial_state = [
     [0,0,0,0],
     [0,0,0,0],
     [0,0,0,0],
     ["A", "B", "C", "*"]
 ]
-goal_state = [
-    [0,0,0,0],
-    [0,"A",0,0],
-    [0,"B",0,0],
-    [0,"C",0,"*"]
-]
-board = Board(initial_state, goal_state)
 
-print(board.state)
-print("+"*20)
-print(board.move_agent("up"))
-print(board.move_agent("up"))
-print(board.move_agent("up"))
+
+
+node = Node(initial_state, 3, 3, None, None)
+# dfs(node, 14)
+# bfs(node)
+# bfs_graph(node)
+iterative_deeping(node, 100)

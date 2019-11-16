@@ -1,4 +1,5 @@
 import copy
+import random
 
 class Node:
 
@@ -7,8 +8,20 @@ class Node:
         self.agent_row = agent_row 
         self.agent_column = agent_column
         self.parent = parent
-        self.depth =  1 #self.parent.depth + 1
+        if parent is not None: 
+            self.depth = self.parent.depth + 1
+        else:
+            self.depth = 0
         self.path = path
+
+
+    def __hash__(self):
+        return hash(str(self.board))
+    
+
+    def __eq__(self, other):
+        return str(self.board) == str(other.board)
+
 
     def find_block(self, node, block):
         for i in range(len(node)):
@@ -19,7 +32,7 @@ class Node:
     
     
     def check_goal(self, board):
-        return board[1][1] == "A" and board[2][1] == "B" and board[3][1] == "C"
+        return board[3][1] == "C" and board[2][1] == "B" and board[1][1] == "A"
 
     
     def print_board(self, board):
@@ -70,14 +83,6 @@ class Node:
             return Node(new_board, agent_row, agent_column, self, direction)
         else:
             return None
-
-        
-    def copy(self, board):
-        new_board = []
-        for item in board:
-            new_board.append(item)
-
-        return new_board
     
 
     def get_children_nodes(self):
@@ -90,10 +95,5 @@ class Node:
                 children_nodes.append(new_node)
             else:
                 continue
+        random.shuffle(children_nodes)
         return children_nodes
-
-
-
-                
-
-
