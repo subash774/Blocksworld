@@ -1,9 +1,9 @@
 from Node import Node
 from collections import deque
+import queue as Q
 
 def dfs(start_node, depth):
     fringe_nodes = [start_node] # Stack of nodes
-    # fringe_nodes.append(start_node)
     step = 0
     while True:
         if len(fringe_nodes) == 0:
@@ -20,8 +20,8 @@ def dfs(start_node, depth):
 
         if node.depth < depth:
             children_nodes = node.get_children_nodes()
-            for i in range(len(children_nodes)):
-                fringe_nodes.append(children_nodes[i])
+            for child in children_nodes:
+                fringe_nodes.append(child)
 
         step += 1
 
@@ -95,5 +95,9 @@ def iterative_deeping(start_node, limit):
         if goal is not None:
             break
     return None
+
+
+def a_star(start_node):
+    q = Q.PriorityQueue()
 
 

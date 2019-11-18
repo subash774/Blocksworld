@@ -23,10 +23,10 @@ class Node:
         return str(self.board) == str(other.board)
 
 
-    def find_block(self, node, block):
-        for i in range(len(node)):
-            if block in node[i]:
-                return i, node[i].index(block)
+    def find_block(self, board, block):
+        for i in range(len(board)):
+            if block in board[i]:
+                return i, board[i].index(block)
             else:
                 continue
     
@@ -97,3 +97,15 @@ class Node:
                 continue
         random.shuffle(children_nodes)
         return children_nodes
+    
+
+    def get_heuristic(self):
+        a = self.find_block(self.board, "A")
+        b = self.find_block(self.board, "B")
+        c = self.find_block(self.board, "C")
+
+        man_dist = (abs(a[0] - 1) + abs(a[1] - 1)
+                    + abs(b[0] - 2) + abs(b[1] - 2)
+                    + abs(c[0] - 3) + abs(c[1] - 3))
+        
+        return self.depth + man_dist
