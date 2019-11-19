@@ -13,7 +13,7 @@ def dfs(start_node, depth):
         node = fringe_nodes.pop()
 
         if node.check_goal(node.board):
-            print("Soluiton found at depth ", node.depth - 1)
+            print("Soluiton found at depth ", node.depth)
             print("Nodes explored: ", step)
             node.print_board(node.board)
             return node
@@ -98,6 +98,37 @@ def iterative_deeping(start_node, limit):
 
 
 def a_star(start_node):
-    q = Q.PriorityQueue()
+    visited_nodes = {}
+    fringe_nodes = [start_node]
+    step = 0
+
+    if len(fringe_nodes) == 0:
+            print("Soluiton not found")
+            return None
+    
+    while len(fringe_nodes) > 0:
+        node = fringe_nodes.pop()
+        visited_nodes[str(node.board)] = 1
+
+        if node.check_goal(node.board):
+            print("Solution found at depth ", node.depth)
+            print("Nodes expanded: ", step)
+            node.print_board(node.board)
+            return node
+        
+        
+        children = node.get_children_nodes()
+        step += 1
+
+        for child in children:
+            if visited_nodes.get(str(child.board)) is not None:
+                continue
+
+            fringe_nodes.append(child)
+
+        fringe_nodes.sort(key=lambda x: x.get_heuristic(), reverse = True)
+
+
+
 
 
