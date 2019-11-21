@@ -1,6 +1,5 @@
 from Node import Node
 from collections import deque
-import queue as Q
 
 def dfs(start_node, depth):
     fringe_nodes = [start_node] # Stack of nodes
@@ -13,10 +12,8 @@ def dfs(start_node, depth):
         node = fringe_nodes.pop()
 
         if node.check_goal(node.board):
-            print("Soluiton found at depth ", node.depth)
-            print("Nodes explored: ", step)
-            node.print_board(node.board)
-            return node
+            # Search name, depth, nodes expanded
+            return ["DFS", node.depth, step]
 
         if node.depth < depth:
             children_nodes = node.get_children_nodes()
@@ -39,8 +36,8 @@ def bfs(start_node):
         node = fringe_nodes.popleft()
 
         if node.check_goal(node.board):
-            print("Solution found at depth ", node.depth)
-            return node
+            # Search name, depth, nodes expanded
+            return ["BFS", node.depth, step]
         
         for child in node.get_children_nodes():
             fringe_nodes.append(child)
@@ -61,9 +58,8 @@ def bfs_graph(start_node):
         visited_nodes[str(node.board)] = 1
 
         if node.check_goal(node.board):
-            print("Solution found at depth ", node.depth)
-            node.print_board(node.board)
-            return node
+            # Search name, depth, nodes expanded
+            return ["BFS_Graph", node.depth, step]
         
         for child in node.get_children_nodes():
             if visited_nodes.get(str(child.board)) is None:
@@ -75,10 +71,8 @@ def itd_search(node, depth):
     global idfs_step
     idfs_step += 1
     if node.check_goal(node.board):
-            print("Solution found at depth ", node.depth)
-            print(f'Nodes expanded: {idfs_step}')
-            node.print_board(node.board)
-            return node
+            # Search name, depth, nodes expanded
+            return ["IDFS", node.depth, step]
     
     if depth > 0:
         for child in node.get_children_nodes():
@@ -111,10 +105,9 @@ def a_star(start_node):
         visited_nodes[str(node.board)] = 1
 
         if node.check_goal(node.board):
-            print("Solution found at depth ", node.depth)
-            print("Nodes expanded: ", step)
+            # Search name, depth, nodes expanded
             node.print_board(node.board)
-            return node
+            return ["A*", node.depth, step]
         
         
         children = node.get_children_nodes()
@@ -126,7 +119,8 @@ def a_star(start_node):
 
             fringe_nodes.append(child)
 
-        fringe_nodes.sort(key=lambda x: x.get_heuristic(), reverse = True)
+        fringe_nodes.sort(key=lambda x: x.depth + x.get_man_heuristic(), reverse = True)
+    
 
 
 

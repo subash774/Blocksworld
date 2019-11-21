@@ -36,25 +36,30 @@ class Node:
 
     
     def print_board(self, board):
-        for i in range(len(board)):
-            print(board[i])
-        print("__"*15)
+        print("-----------------")
+        for i in board:
+            vertical_dash = "| "
+            for j in i:
+                vertical_dash = vertical_dash + str(j) + " | "
+            print(vertical_dash)
+            print("-----------------")
 
+     
 
-    def check_moves(self, agent_row, agent_column):
+    def check_moves(self, agent_row, agent_column, board):
         possible = {
             "up" : True,
             "down" : True,
             "left" : True,
             "right" : True
         }
-        if agent_row - 1 < 0:
+        if agent_row - 1 < 0 or board[agent_row][agent_column] == "X":
             possible["up"] = False
-        if agent_row + 1 > 3:
+        if agent_row + 1 > 3 or board[agent_row][agent_column] == "X":
             possible["down"] = False
-        if agent_column - 1 < 0:
+        if agent_column - 1 < 0 or board[agent_row][agent_column] == "X":
             possible["left"] = False
-        if agent_column + 1 > 3:
+        if agent_column + 1 > 3 or board[agent_row][agent_column] == "X":
             possible["right"] = False
         
         return possible
@@ -62,7 +67,7 @@ class Node:
 
     def move_agent(self, new_board, direction):
         agent_row, agent_column = self.find_block(new_board, "*")
-        if self.check_moves(agent_row, agent_column).get(direction):
+        if self.check_moves(agent_row, agent_column, new_board).get(direction):
             if direction == "up": 
                 # swap the agent with upper block
                 new_board[agent_row][agent_column], new_board[agent_row - 1][agent_column] = new_board[agent_row - 1][agent_column], new_board[agent_row][agent_column]
@@ -99,7 +104,7 @@ class Node:
         return children_nodes
     
 
-    def get_heuristic(self):
+    def get_man_heuristic(self):
         a = self.find_block(self.board, "A")
         b = self.find_block(self.board, "B")
         c = self.find_block(self.board, "C")
@@ -108,4 +113,15 @@ class Node:
                     + abs(b[0] - 2) + abs(b[1] - 2)
                     + abs(c[0] - 3) + abs(c[1] - 3))
         
-        return self.depth + man_dist
+        return man_dist
+    
+    def get_cheb_heuristic(self):
+        a = self.find_block(self.board, "A")
+        b = self.find_block(self.board, "B")
+        c = self.find_block(self.board, "C")
+
+        man_dist = (abs(a[0] - 1) + abs(a[1] - 1)
+                    + abs(b[0] - 2) + abs(b[1] - 2)
+                    + abs(c[0] - 3) + abs(c[1] - 3))
+        
+        return man_dist
