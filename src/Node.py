@@ -23,6 +23,13 @@ class Node:
         return str(self.board) == str(other.board)
 
 
+    def __lt__(self, node2):
+        if (self.depth < node2.depth) and (self.get_man_heuristic() < node2.get_man_heuristic()):
+            return True
+        else:
+            return False
+
+
     def find_block(self, board, block):
         for i in range(len(board)):
             if block in board[i]:

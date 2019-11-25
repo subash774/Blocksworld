@@ -1,5 +1,6 @@
 from Node import Node
 from collections import deque
+from queue import PriorityQueue as Q
 
 def dfs(start_node):
     fringe_nodes = [start_node] # Stack of nodes
@@ -102,54 +103,20 @@ def iterative_deeping(start_node, limit):
     return ["IDS", node.depth, nodes_expanded]
     
 
-def a_star(start_node, h):
-    visited_nodes = {}
-    fringe_nodes = [start_node]
-    nodes_expanded = 0
-
-    if len(fringe_nodes) == 0:
-        print("Soluiton not found")
-        return None
-    
-    while len(fringe_nodes) > 0:
-        node = fringe_nodes.pop()
-        # node.print_board(node.board)
-        visited_nodes[str(node.board)] = 1
-        
-        node.print_board(node.board)
-
-        if node.check_goal(node.board):
-            # Search name, depth, nodes expanded
-            # node.print_board(node.board)
-            return ["A*", node.depth, nodes_expanded]
-        
-        
-        children = node.get_children_nodes()
-        nodes_expanded += 1
-
-        for child in children:
-            if visited_nodes.get(str(child.board)) is not None:
-                continue
-            fringe_nodes.append(child)
-        
-        if h == "m":
-            fringe_nodes.sort(key=lambda x: x.depth + x.get_man_heuristic())
-        if h == "c":
-            fringe_nodes.sort(key=lambda x: x.depth + x.get_cheb_heuristic(), reverse = True)
-
-
 def a_star_graph(start_node, h):
     visited_nodes = {}
-    fringe_nodes = [start_node]
+    fringe_nodes = Q()
     nodes_expanded = 0
 
-    if len(fringe_nodes) == 0:
+    fringe_nodes.put((start_node.get_man_heuristic(), start_node))
+
+    if fringe_nodes.qsize() == 0:
         print("Soluiton not found")
         return None
     
-    while len(fringe_nodes) > 0:
+    while fringe_nodes.qsize()  > 0:
     # for i in range(5):
-        node = fringe_nodes.pop()
+        node = fringe_nodes.get()[1]
         # node.print_board(node.board)
         visited_nodes[str(node.board)] = 1
         
@@ -167,26 +134,26 @@ def a_star_graph(start_node, h):
         for child in children:
             if visited_nodes.get(str(child.board)) is not None:
                 continue
-            fringe_nodes.append(child)
-        
-        if h == "m":
-            fringe_nodes.sort(key=lambda x: x.depth + x.get_man_heuristic(), reverse = True)
-        if h == "c":
-            fringe_nodes.sort(key=lambda x: x.depth + x.get_cheb_heuristic(), reverse = True)
+            if h == "m":
+                fringe_nodes.put((child.depth + child.get_man_heuristic(), child))
+            if h == "c":
+                fringe_nodes.put((child.depth + child.get_cheb_heuristic(), child))
+    
     
 
 
 def a_star(start_node, h):
-    fringe_nodes = [start_node]
+    fringe_nodes = Q()
     nodes_expanded = 0
+    fringe_nodes.put((start_node.get_man_heuristic(), start_node))
 
-    if len(fringe_nodes) == 0:
+    if fringe_nodes.qsize() == 0:
         print("Solution not found")
         return None
     
-    while len(fringe_nodes) > 0:
+    while fringe_nodes.qsize() > 0:
     # for i in range(5):
-        node = fringe_nodes.pop()
+        node = fringe_nodes.get()[1]
 
         if node.check_goal(node.board):
             # Search name, depth, nodes expanded
@@ -198,15 +165,8 @@ def a_star(start_node, h):
         nodes_expanded += 1
 
         for child in children:
-            fringe_nodes.append(child)
-        
-        if h == "m":
-            fringe_nodes.sort(key=lambda x: x.depth + x.get_man_heuristic(), reverse = True)
-        if h == "c":
-            fringe_nodes.sort(key=lambda x: x.depth + x.get_cheb_heuristic(), reverse = True)
-
-        # for j in range(len(fringe_nodes)):
-        #     fringe_nodes[j].print_board(fringe_nodes[j].board)
-        #     print(fringe_nodes[j].get_man_heuristic())
-        # print("____________________")        
-
+            if h == "m":
+                fringe_nodes.put((child.depth + child.get_man_heuristic(), child))
+            if h == "c":
+                fringe_nodes.put((child.depth + child.get_cheb_heuristic(), child))
+   
