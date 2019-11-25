@@ -81,4 +81,7 @@ for i in range(10):
         row, column = find_block(states[j],"*")
         node = Node(states[j],row,column,None,None)
         res = bfs(node)
-        print(j+1, ",", res[0], ",", res[1], ",", res[2])
+        if res is None:
+            continue
+        else:
+            print(j+1, ",", res[0], ",", res[1], ",", res[2])

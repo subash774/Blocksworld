@@ -71,7 +71,7 @@ def bfs(start_node):
             
             nodes_expanded += 1
         else:
-            return "Time limit exceeded"
+            return None
 
 
 def bfs_graph(start_node):
