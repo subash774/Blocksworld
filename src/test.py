@@ -1,5 +1,5 @@
 from Node import Node
-from Search import dfs, dfs_graph, bfs, bfs_graph, iterative_deeping, a_star, a_star_graph
+from Search import dfs, dfs_graph, bfs, bfs_graph, iterative_deepening, a_star, a_star_graph
 
 states = []
 
@@ -70,5 +70,5 @@ for i in range(10):
     for j in range(len(states)):
         row, column = find_block(states[j],"*")
         node = Node(states[j],row,column,None,None)
-        res = iterative_deeping(node)
+        res = iterative_deepening(node,j+1)
         print(j+1, ",", res[0], ",", res[1], ",", res[2])

@@ -119,7 +119,7 @@ def depth_limited(start_node, depth):
             nodes_expanded += 1
 
 
-def iterative_deeping(start_node, limit):
+def iterative_deepening(start_node, limit):
     for i in range(limit):
         node, nodes_expanded, goal = depth_limited(start_node, limit)
         if goal:

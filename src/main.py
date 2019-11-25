@@ -1,5 +1,5 @@
 from Node import Node
-from Search import dfs, bfs, bfs_graph, iterative_deeping, a_star, a_star_graph
+from Search import dfs, bfs, bfs_graph, iterative_deepening, a_star, a_star_graph
 initial_state = [
     [0,0,0,0],
     [0,0,0,0],
@@ -17,6 +17,6 @@ node = Node(initial_state, 3, 3, None, None)
 # print(dfs(node))
 # bfs(node)
 # print(bfs_graph(node))
-# print(iterative_deeping(node, 14))
+# print(iterative_deepening(node, 14))
 print(a_star_graph(node, "m"))
 print(a_star(node, "m"))
