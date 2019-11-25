@@ -109,19 +109,26 @@ class Node:
         b = self.find_block(self.board, "B")
         c = self.find_block(self.board, "C")
 
+
+
         man_dist = (abs(a[0] - 1) + abs(a[1] - 1)
-                    + abs(b[0] - 2) + abs(b[1] - 2)
-                    + abs(c[0] - 3) + abs(c[1] - 3))
+                    + abs(b[0] - 2) + abs(b[1] - 1)
+                    + abs(c[0] - 3) + abs(c[1] - 1))
         
         return man_dist
+        
     
     def get_cheb_heuristic(self):
         a = self.find_block(self.board, "A")
         b = self.find_block(self.board, "B")
         c = self.find_block(self.board, "C")
 
-        man_dist = (abs(a[0] - 1) + abs(a[1] - 1)
-                    + abs(b[0] - 2) + abs(b[1] - 2)
-                    + abs(c[0] - 3) + abs(c[1] - 3))
+        cheb_dist = (max(abs(a[1] - b[1]),
+                    abs(b[1] - c[1]),
+                    abs(a[1] - c[1])) 
+                    * 
+                    max(abs(a[0] - b[0]),
+                    abs(b[0] - c[0]),
+                    abs(a[0] - c[0])))
         
-        return man_dist
+        return (cheb_dist + self.get_man_heuristic())/2
