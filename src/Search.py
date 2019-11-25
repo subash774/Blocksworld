@@ -1,6 +1,7 @@
 from Node import Node
 from collections import deque
 from queue import PriorityQueue as Q
+import time
 
 def dfs(start_node):
     fringe_nodes = [start_node] # Stack of nodes
@@ -52,22 +53,25 @@ def bfs(start_node):
     nodes_expanded = 0
     fringe_nodes = deque([]) # Queue of nodes
     fringe_nodes.append(start_node)
-
+    t_end = time.time() + 60 * 15 # 15 min time limit
     while True:
-        if len(fringe_nodes) == 0:
-            print("Soluiton not found")
-            return None
-        
-        node = fringe_nodes.popleft()
+        if time.time() < t_end:
+            if len(fringe_nodes) == 0:
+                print("Soluiton not found")
+                return None
+            
+            node = fringe_nodes.popleft()
 
-        if node.check_goal(node.board):
-            # Search name, depth, nodes expanded
-            return ["BFS", node.depth, nodes_expanded]
-        
-        for child in node.get_children_nodes():
-            fringe_nodes.append(child)
-        
-        nodes_expanded += 1
+            if node.check_goal(node.board):
+                # Search name, depth, nodes expanded
+                return ["BFS", node.depth, nodes_expanded]
+            
+            for child in node.get_children_nodes():
+                fringe_nodes.append(child)
+            
+            nodes_expanded += 1
+        else:
+            return "Time limit exceeded"
 
 
 def bfs_graph(start_node):
