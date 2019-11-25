@@ -24,6 +24,30 @@ def dfs(start_node):
         nodes_expanded += 1
 
 
+def dfs_graph(start_node):
+    fringe_nodes = [start_node] # Stack of nodes
+    nodes_expanded = 0
+    visited_nodes = {}
+
+    while True:
+        if len(fringe_nodes) == 0:
+            print("Solution not found")
+            return None
+        
+        node = fringe_nodes.pop()
+
+        if node.check_goal(node.board):
+            # Search name, depth, nodes expanded
+            return ["DFS", node.depth, nodes_expanded]
+
+
+        children_nodes = node.get_children_nodes()
+        for child in children_nodes:
+            if visited_nodes.get(str(child.board)) is None:
+                fringe_nodes.append(child)
+
+        nodes_expanded += 1
+
 def bfs(start_node):
     nodes_expanded = 0
     fringe_nodes = deque([]) # Queue of nodes
@@ -139,8 +163,6 @@ def a_star_graph(start_node, h):
             if h == "c":
                 fringe_nodes.put((child.depth + child.get_cheb_heuristic(), child))
     
-    
-
 
 def a_star(start_node, h):
     fringe_nodes = Q()
