@@ -39,7 +39,7 @@ def dfs_graph(start_node):
 
         if node.check_goal(node.board):
             # Search name, depth, nodes expanded
-            return ["DFS", node.depth, nodes_expanded]
+            return ["DFS Graph", node.depth, nodes_expanded]
 
 
         children_nodes = node.get_children_nodes()
@@ -57,7 +57,7 @@ def bfs(start_node):
     while True:
         if time.time() < t_end:
             if len(fringe_nodes) == 0:
-                print("Soluiton not found")
+                print("Solution not found")
                 return None
             
             node = fringe_nodes.popleft()
@@ -82,7 +82,7 @@ def bfs_graph(start_node):
 
     while True:
         if len(fringe_nodes) == 0:
-            print("Soluiton not found")
+            print("Solution not found")
             return None
         
         node = fringe_nodes.popleft()
@@ -139,7 +139,7 @@ def a_star_graph(start_node, h):
     fringe_nodes.put((start_node.get_man_heuristic(), start_node))
 
     if fringe_nodes.qsize() == 0:
-        print("Soluiton not found")
+        print("Solution not found")
         return None
     
     while fringe_nodes.qsize()  > 0:
