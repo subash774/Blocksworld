@@ -30,50 +30,50 @@ def find_block(board, block):
                 continue
 
 
-for j in range(len(states)):
-    row, column = find_block(states[j],"*")
-    node = Node(states[j],row,column,None,None)
-    res = a_star_graph(node, "m")
-    print(j+1, ",", res[0], ",", res[1], ",", res[2])
+# for j in range(len(states)):
+#     row, column = find_block(states[j],"*")
+#     node = Node(states[j],row,column,None,None)
+#     res = a_star_graph(node, "m")
+#     print(j+1, ",", res[0], ",", res[1], ",", res[2])
 
 
-for j in range(len(states)):
-    row, column = find_block(states[j],"*")
-    node = Node(states[j],row,column,None,None)
-    res = a_star(node, "m")
-    print(j+1, ",", res[0], ",", res[1], ",", res[2])
+# for j in range(len(states)):
+#     row, column = find_block(states[j],"*")
+#     node = Node(states[j],row,column,None,None)
+#     res = a_star(node, "m")
+#     print(j+1, ",", res[0], ",", res[1], ",", res[2])
 
 
-for i in range(10):
-    for j in range(len(states)):
-        row, column = find_block(states[j],"*")
-        node = Node(states[j],row,column,None,None)
-        res = dfs(node)
-        print(j+1, ",", res[0], ",", res[1], ",", res[2])
+# for i in range(10):
+#     for j in range(len(states)):
+#         row, column = find_block(states[j],"*")
+#         node = Node(states[j],row,column,None,None)
+#         res = dfs(node)
+#         print(j+1, ",", res[0], ",", res[1], ",", res[2])
 
 
-for i in range(10):
-    for j in range(len(states)):
-        row, column = find_block(states[j],"*")
-        node = Node(states[j],row,column,None,None)
-        res = dfs_graph(node)
-        print(j+1, ",", res[0], ",", res[1], ",", res[2])
+# for i in range(10):
+#     for j in range(len(states)):
+#         row, column = find_block(states[j],"*")
+#         node = Node(states[j],row,column,None,None)
+#         res = dfs_graph(node)
+#         print(j+1, ",", res[0], ",", res[1], ",", res[2])
 
 
-for i in range(10):
-    for j in range(len(states)):
-        row, column = find_block(states[j],"*")
-        node = Node(states[j],row,column,None,None)
-        res = bfs_graph(node)
-        print(j+1, ",", res[0], ",", res[1], ",", res[2])
+# for i in range(10):
+#     for j in range(len(states)):
+#         row, column = find_block(states[j],"*")
+#         node = Node(states[j],row,column,None,None)
+#         res = bfs_graph(node)
+#         print(j+1, ",", res[0], ",", res[1], ",", res[2])
 
 
-for i in range(10):
-    for j in range(len(states)):
-        row, column = find_block(states[j],"*")
-        node = Node(states[j],row,column,None,None)
-        res = iterative_deepening(node,j+1)
-        print(j+1, ",", res[0], ",", res[1], ",", res[2])
+# for i in range(10):
+#     for j in range(len(states)):
+#         row, column = find_block(states[j],"*")
+#         node = Node(states[j],row,column,None,None)
+#         res = iterative_deepening(node,j+1)
+#         print(j+1, ",", res[0], ",", res[1], ",", res[2])
 
 
 for i in range(10):
@@ -82,6 +82,6 @@ for i in range(10):
         node = Node(states[j],row,column,None,None)
         res = bfs(node)
         if res is None:
-            continue
+            print(j+1, ",", None, ",", None, ",", None)
         else:
             print(j+1, ",", res[0], ",", res[1], ",", res[2])
