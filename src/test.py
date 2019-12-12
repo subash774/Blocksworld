@@ -21,13 +21,14 @@ states.append([['A',0,0,0],[0,0,0,0],[0,'B','C',0],[0,0,0,'*']]) #depth 13
 states.append([[0,0,0,0],[0,0,0,0],[0,0,0,0],['A','B','C','*']]) #depth 14
 
 
-
 def find_block(board, block):
         for i in range(len(board)):
             if block in board[i]:
                 return i, board[i].index(block)
             else:
                 continue
+
+
 
 
 for j in range(len(states)):
@@ -76,12 +77,12 @@ for i in range(10):
         print(j+1, ",", res[0], ",", res[1], ",", res[2])
 
 
-# for i in range(10):
-#     for j in range(len(states)):
-#         row, column = find_block(states[j],"*")
-#         node = Node(states[j],row,column,None,None)
-#         res = bfs(node)
-#         if res is None:
-#             print(j+1, ",", None, ",", None, ",", None)
-#         else:
-#             print(j+1, ",", res[0], ",", res[1], ",", res[2])
+for i in range(10):
+    for j in range(len(states)):
+        row, column = find_block(states[j],"*")
+        node = Node(states[j],row,column,None,None)
+        res = bfs(node)
+        if res is None:
+            print(j+1, ",", None, ",", None, ",", None)
+        else:
+            print(j+1, ",", res[0], ",", res[1], ",", res[2])

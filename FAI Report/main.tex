@@ -18,6 +18,7 @@
 \usepackage{anysize} % to set up document margins
 \marginsize{2cm}{2cm}{2cm}{0.6cm} % Left, right, up, down
 \usepackage{appendix} %Extra control of appendices
+\usepackage{listings}
 
 % Refereces as links with colors
 \usepackage[colorlinks=true,plainpages=true,citecolor=blue,linkcolor=blue]{hyperref}
@@ -111,6 +112,12 @@
 
 \tableofcontents 
 
+
+\section*{Nomenclature}
+\textbf{BFS} : Breadth First Search \\
+\textbf{DFS} : Depth First Search \\
+\textbf{IDS} : Iterative Deepening (Depth First) Search
+
 \newpage
 
   \section{Approach}
@@ -137,7 +144,7 @@
   While all search methods are similar, they make use of different data structures depending on the algorithm to keep efficiency to maximum. BFS uses a queue, a first in first out (FIFO) structure in order to store the nodes and the subsequent children nodes. Although the two algorithms are very similar, DFS on the other hand uses stacks where last in first out (LIFO) is followed. Implementation of IDS was quite easy given the implementation of DFS. IDS is essentially DFS but repeated with a limit on the depth expanded on. \\
 
   A* search, however, was quite different to all the other searches. While all the others are examples of uninformed searches, A* uses heuristic to navigate its way through to the goal state; better the heuristic, better the performance. To store the nodes, A* uses a priority queue where the nodes in the queue are ordered by their associated value of the heuristic. This is by far the best tree search algorithm amongst the 4 mentioned above. \\ \\
-Apart from Node and Search, my only other script is Main where I call functions from \textit{Search.py} in order to solve the puzzle.
+Apart from Node and Search, my only other script is Test where I call functions from \textit{Search.py} in order to solve the puzzle.
 
   \section{Evidence}
   \paragraph{} \indent
@@ -148,74 +155,113 @@ Apart from Node and Search, my only other script is Main where I call functions 
   In Breadth First Search, nodes are expanded in the order they’re added to the fringe. On each depth, it’ll expand all nodes and check for goal state, if not found, it’ll move into the next depth repeating this iterative process. Evidence for depth 2 can be seen below. 
 
   Graph search for BFS would mean that we store the visited nodes and upon each node expansion, we only add nodes to the fringe that have not been visited yet. This makes the search faster.
+  While running for depth 14, on average \textbf{BFS nodes expanded: 5182280} and \textbf{BFS Graph nodes expanded: 3469}.
+
+  \begin{center}
+    \begin{tabular}{cc}
+    \includegraphics[width=1\textwidth]{images/bfs.png} \\
+      \end{tabular}
+    \end{center}
 
   \subsection{DFS and DFS Graph}
   \paragraph{} \indent
   Depth First Search always expands the deepest node in the fringe (last added) of the search tree. When goal state is not found, another deepest node is expanded. 
-
   Similar to BFS Graph, when the visited nodes are stored, search becomes faster; reducing the nodes expanded, trading off space for time. 
+  While running for depth 14, on average \textbf{DFS nodes expanded: 29159} and \textbf{DFS Graph nodes expanded: 11607}.
 
+  \begin{center}
+    \begin{tabular}{cc}
+    \includegraphics[width=0.65\textwidth]{images/dfs.png} \\
+      \end{tabular}
+    \end{center}
 
   \subsection{IDS}
   \paragraph{} \indent
-  Iterative Deepening Search is often used with DFS but with a slightly restricted approach. By limiting the depth in DFS, IDS gradually performs depth-limited DFS increasing the depth until the goal is found. IDS combines the benefits of BFS and DFS.
+  Iterative Deepening Search is often used with DFS but with a slightly restricted approach. By limiting the depth in DFS, IDS gradually performs depth-limited DFS increasing the depth until the goal is found. IDS combines the benefits of BFS and DFS \cite{aim}.
+  While running for depth 14, on average \textbf{IDS nodes expanded: 1622898}.
 
+  \begin{center}
+    \begin{tabular}{cc}
+    \includegraphics[width=0.65\textwidth]{images/ids.png} \\
+      \end{tabular}
+    \end{center}
 
   \subsection{A* Tree Search and A* Graph Search}
   \paragraph{} \indent
-  Unlike other searches mentioned above, A* search is an informed search that combines the cost to reach the node and the cost to get from the node to the goal. A* search is known to be both complete and optimal. 
+  Unlike other searches mentioned above, A* search is an informed search that combines the cost to reach the node and the cost to get from the node to the goal. A* search is known to be both complete and optimal. For the heuristic, I implemented manhattan distance, this is used to calculate the cost function. Manhattan distance is simply the shortest distance from one tile to the other; used to find the misplaced tiles. Alternatively, Euclidean distance could be used, however, as our agent cannot move in diagonal directions, it wouldn't be practical.
 
   To make A* even better, like before, I implemented graph search, storing the nodes that were visited.
+  While running for depth 14, on average \textbf{A* nodes expanded: 20292 } and \textbf{A* Graph nodes expanded: 374}.
+
+
+  \begin{center}
+    \begin{tabular}{cc}
+    \includegraphics[width=1\textwidth]{images/A*.png} \\
+      \end{tabular}
+    \end{center}
 
   \section{Scalibility}
   \paragraph{} \indent
-  In order to study how the algorithms scale as the complexity of the problem grows, I created 13 different initial state; each with different optimal depths ranging from 1 to 13 depths away from the goal state. In order to create these states, I used A* search as it is both optimal and complete, storing a state at each depth until goal state was reached. 
+  In order to study how the algorithms scale as the complexity of the problem grows, I created 14 different initial state; each with different optimal depths ranging from 1 to 14 depths away from the goal state. In order to create these states, I used A* search as it is both optimal and complete, storing a state at each depth until goal state was reached. 
+
+  \begin{center}
+    \begin{tabular}{cc}
+    \includegraphics[width=0.65\textwidth]{images/depths.png} \\
+      \end{tabular}
+    \end{center}
 
   As most of the search algorithms implemented are random and uninformed, I created a test (Test.py) where all uninformed searches were run 10 times per depth, resulting in 140 runs of each search. Shown below are the states for each depth and in this section, I present results of how increase in depth affects the number of nodes expanded (averaged over the 10 runs). 
 
   \begin{center}
     \begin{tabular}{cc}
-    \includegraphics[width=0.65\textwidth]{images/all_tree.png} \\
-    \textbf{Figure 4: } All tree searches compared \\
+    \includegraphics[width=0.55\textwidth]{images/all_tree.png} \\
+    \textbf{Figure 1: } All tree searches compared \\
      \end{tabular}
     \end{center}
   
   \begin{center}
     \begin{tabular}{cc}
-    \includegraphics[width=0.65\textwidth]{images/a_star_vs_dfs.png} \\
+    \includegraphics[width=0.55\textwidth]{images/a_star_vs_dfs.png} \\
+    \textbf{Figure 2: } A* vs DFS \\
       \end{tabular}
     \end{center}
   
   \begin{center}
     \begin{tabular}{cc}
-    \includegraphics[width=0.65\textwidth]{images/ids_bfs.png} \\
+    \includegraphics[width=0.55\textwidth]{images/ids_bfs.png} \\
+    \textbf{Figure 3: } IDS vs BFS \\
+
       \end{tabular}
     \end{center}
 
   \begin{center}
     \begin{tabular}{cc}
-    \includegraphics[width=0.65\textwidth]{images/dfs_ids.png} \\
+    \includegraphics[width=0.55\textwidth]{images/dfs_ids.png} \\
+    \textbf{Figure 4: } DFS vs IDS \\
+
       \end{tabular}
     \end{center}
 
   \begin{center}
     \begin{tabular}{cc}
-    \includegraphics[width=0.65\textwidth]{images/tree_log.png} \\
+    \includegraphics[width=0.55\textwidth]{images/tree_log.png} \\
+    \textbf{Figure 5: } Comparison of all tree search \\
       \end{tabular}
     \end{center}
 
   \begin{center}
     \begin{tabular}{cc}
-    \includegraphics[width=0.65\textwidth]{images/all_logged.png} \\
+    \includegraphics[width=0.55\textwidth]{images/all_logged.png} \\
+    \textbf{Figure 6: } Comparison of all search results\\
       \end{tabular}
     \end{center}
 
   \newpage
-  It is clearly visible from figure 4 that after depth 10, BFS and IDS start getting heavily affected by the number of nodes expanded. In other words, their number of nodes expanded starts growing at a very rapid rate. As their number of nodes expanded are so large, we are unable to see the impact on other searches such as A* and DFS. Hence, figure 5 shows the comparisions in node expanded; A* vs DFS. I also created graphs for some more comparisions between graph search and tree search. To visualise the exponential expansion nature of some search methods, I’ve used logarithmic scale for some graphs. Below, I compare different search methods in more detail.
+  It is clearly visible from figure 1 that after depth 10, BFS and IDS start getting heavily affected by the number of nodes expanded. In other words, their number of nodes expanded starts growing at a very rapid rate. As their number of nodes expanded are so large, we are unable to see the impact on other searches such as A* and DFS. Hence, figure 5 shows the comparisons in node expanded; A* vs DFS. I also created graphs for some more comparisons between graph search and tree search. To visualise the exponential expansion nature of some search methods, I’ve used logarithmic scale for some graphs. Below, I compare different search methods in more detail.
 
   \subsection{BFS vs IDS}
   \paragraph{} \indent
-  From figure 4, we can see that IDS and BFS are the most dominating (in terms of nodes expanded) search methods amongst the others. BFS and IDS are quite similar in terms of performance and this can be seen from the test results as they both follow a close trend; proving that their time complexity is similar. However, although we cannot conclude from the graphs presented above, space complexity of the two algorithms are different. While BFS stores the whole tree, IDS only stores (as an estimate) the branch nodes, making IDS more memory efficient than BFS. 
+  From figure 1, we can see that IDS and BFS are the most dominating (in terms of nodes expanded) search methods amongst the others. BFS and IDS are quite similar in terms of performance and this can be seen from the test results as they both follow a close trend; proving that their time complexity is similar. However, although we cannot conclude from the graphs presented above, space complexity of the two algorithms are different. While BFS stores the whole tree, IDS only stores (as an estimate) the branch nodes, making IDS more memory efficient than BFS. 
 
   \subsection{DFS vs A*}
   \paragraph{} \indent
@@ -226,19 +272,471 @@ Apart from Node and Search, my only other script is Main where I call functions 
   \paragraph{} \indent
   From figure 6, we can see that IDS is superior to DFS but that only holds true until depth 11. IDS seems to exponentially grow after the depth of 11 or so. DFS also has a problem; when the search space is large and there is only one solution. These are both not the best search algorithms we have but in this case, DFS seems to be better because of the time complexity (compared to IDS, DFS looks to have constant time).  
 
+  \subsection{Tree vs Graph}
+  \paragraph{} \indent
+  In general, we notice that graph search is faster than tree search however, graph search requires more memory, as it keeps track of all visited states. In order to optimise memory, I stored all the visited nodes in a set which ensures no duplicates are contained. 
 
   \section{Extras and Limitations}
   \paragraph{} \indent
   If I had more time, I’d have liked to explore the problem further, increasing the depth to more than 14 to compare different search strategies. I’d also include more searches such as bidirectional search and most interestingly, Iterative deepening A* search as it claims to ``keep the memory usage lower than in A*'' \cite{ida*}. In terms of the Blocksworld puzzle itself, I'd have liked if the search problem wasn't limited to a 4 x 4 grid; I'd make the grid adaptable to any sizes. Although heuristics other than Manhattan distance was studied, implementation of Chebyshev distance \cite{chev} was not functional, I'd have loved to expand on that to see the difference in performance against manhattan distance. 
 
-  \section{References}
+  Other than what was required by the coursework specification, I implemented graph searches to be compared against tree searches. It was helpful to visualise how space time complexity trade off would result in better performance in certain cases. I also added blocks in the world which could not be moved. This, based on the placement made the search problem sometimes more complex and easier the other times. If I had more time I'd have compared the performance with and without blocks with different algorithms.
 
-  \section{Code}
-%%%%%%% Bibliografía %%%%%%%%
+
+  %%%%%%% Bibliografía %%%%%%%%
 \bibliographystyle{bst/IEEEtran} 
 \addcontentsline{toc}{section}{References}  
 \bibliography{bib/IEEEreferences} 
 %%%%%%% Bibliografía %%%%%%%%    
+
+  \section{Code}
+  All code snippets and data analysis can be found at: \url{www.test.com}
+  \subsection{Node.py}
+  \begin{lstlisting}
+import copy
+import random
+
+class Node:
+
+    def __init__(self, board, agent_row, agent_column, parent, path):
+        self.board = board
+        self.agent_row = agent_row 
+        self.agent_column = agent_column
+        self.parent = parent
+        if parent is not None: 
+            self.depth = self.parent.depth + 1
+        else:
+            self.depth = 0
+        self.path = path
+
+
+    def __hash__(self):
+        return hash(str(self.board))
+    
+
+    def __eq__(self, other):
+        return str(self.board) == str(other.board)
+
+
+    def __lt__(self, node2):
+        if (self.depth < node2.depth) and (self.get_man_heuristic() < node2.get_man_heuristic()):
+            return True
+        else:
+            return False
+
+
+    def find_block(self, board, block):
+        for i in range(len(board)):
+            if block in board[i]:
+                return i, board[i].index(block)
+            else:
+                continue
+    
+    
+    def check_goal(self, board):
+        return board[3][1] == "C" and board[2][1] == "B" and board[1][1] == "A"
+
+    
+    def print_board(self, board):
+        print("-----------------")
+        for i in board:
+            vertical_dash = "| "
+            for j in i:
+                vertical_dash = vertical_dash + str(j) + " | "
+            print(vertical_dash)
+            print("-----------------")
+        print("")
+
+     
+
+    def check_moves(self, agent_row, agent_column, board):
+        possible = {
+            "up" : True,
+            "down" : True,
+            "left" : True,
+            "right" : True
+        }
+        if agent_row - 1 < 0 or board[agent_row][agent_column] == "X":
+            possible["up"] = False
+        if agent_row + 1 > 3 or board[agent_row][agent_column] == "X":
+            possible["down"] = False
+        if agent_column - 1 < 0 or board[agent_row][agent_column] == "X":
+            possible["left"] = False
+        if agent_column + 1 > 3 or board[agent_row][agent_column] == "X":
+            possible["right"] = False
+        
+        return possible
+
+
+    def move_agent(self, new_board, direction):
+        agent_row, agent_column = self.find_block(new_board, "*")
+        if self.check_moves(agent_row, agent_column, new_board).get(direction):
+            if direction == "up": 
+                # swap the agent with upper block
+                new_board[agent_row][agent_column], new_board[agent_row - 1][agent_column] = new_board[agent_row - 1][agent_column], new_board[agent_row][agent_column]
+            
+            if direction == "down": 
+                # swap the agent with lower block
+                new_board[agent_row][agent_column], new_board[agent_row + 1][agent_column] = new_board[agent_row + 1][agent_column], new_board[agent_row][agent_column]
+        
+            if direction == "left": 
+                # swap the agent with left block
+                new_board[agent_row][agent_column], new_board[agent_row][agent_column -1 ] = new_board[agent_row][agent_column - 1], new_board[agent_row][agent_column]
+
+            if direction == "right": 
+                # swap the agent with right block
+                new_board[agent_row][agent_column], new_board[agent_row][agent_column + 1 ] = new_board[agent_row][agent_column + 1], new_board[agent_row][agent_column]
+            
+            agent_row, agent_column = self.find_block(new_board, "*")
+            return Node(new_board, agent_row, agent_column, self, direction)
+        else:
+            return None
+    
+
+    def get_children_nodes(self):
+        children_nodes = []
+        directions = ["up", "left", "right", "down"]
+        for direction in directions:
+            new_board = copy.deepcopy(self.board)
+            new_node = self.move_agent(new_board, direction)
+            if new_node is not None:
+                children_nodes.append(new_node)
+            else:
+                continue
+        random.shuffle(children_nodes)
+        return children_nodes
+    
+
+    def get_man_heuristic(self):
+        a = self.find_block(self.board, "A")
+        b = self.find_block(self.board, "B")
+        c = self.find_block(self.board, "C")
+
+
+
+        man_dist = (abs(a[0] - 1) + abs(a[1] - 1)
+                    + abs(b[0] - 2) + abs(b[1] - 1)
+                    + abs(c[0] - 3) + abs(c[1] - 1))
+        
+        return man_dist
+        
+    
+    def get_cheb_heuristic(self):
+        a = self.find_block(self.board, "A")
+        b = self.find_block(self.board, "B")
+        c = self.find_block(self.board, "C")
+
+        cheb_dist = (max(abs(a[1] - b[1]),
+                    abs(b[1] - c[1]),
+                    abs(a[1] - c[1])) 
+                    * 
+                    max(abs(a[0] - b[0]),
+                    abs(b[0] - c[0]),
+                    abs(a[0] - c[0])))
+        
+        return (cheb_dist + self.get_man_heuristic())/2
+  \end{lstlisting}
+
+  \subsection{Search.py}
+  \begin{lstlisting}
+from Node import Node
+from collections import deque
+from queue import PriorityQueue as Q
+import time
+
+def dfs(start_node):
+    fringe_nodes = [start_node] # Stack of nodes
+    nodes_expanded = 0
+    while True:
+        if len(fringe_nodes) == 0:
+            print("Solution not found")
+            return None
+        
+        node = fringe_nodes.pop()
+        
+        if node.check_goal(node.board):
+            node.print_board(node.board)
+            # Search name, depth, nodes expanded
+            return ["DFS", node.depth, nodes_expanded]
+
+        node.print_board(node.board)
+        children_nodes = node.get_children_nodes()
+        for child in children_nodes:
+            fringe_nodes.append(child)
+        nodes_expanded += 1
+
+
+def dfs_graph(start_node):
+    fringe_nodes = [start_node] # Stack of nodes
+    nodes_expanded = 0
+    visited_nodes = {}
+
+    while True:
+        if len(fringe_nodes) == 0:
+            print("Solution not found")
+            return None
+        
+        node = fringe_nodes.pop()
+
+        if node.check_goal(node.board):
+            # Search name, depth, nodes expanded
+            return ["DFS Graph", node.depth, nodes_expanded]
+
+        node.print_board(node.board)
+        children_nodes = node.get_children_nodes()
+        for child in children_nodes:
+            if visited_nodes.get(str(child.board)) is None:
+                fringe_nodes.append(child)
+
+        nodes_expanded += 1
+
+def bfs(start_node):
+    nodes_expanded = 0
+    fringe_nodes = deque([]) # Queue of nodes
+    fringe_nodes.append(start_node)
+    t_end = time.time() + 60 * 15 # 15 min time limit
+    while True:
+        if time.time() < t_end:
+            if len(fringe_nodes) == 0:
+                print("Solution not found")
+                return None
+            
+            node = fringe_nodes.popleft()
+
+            if node.check_goal(node.board):
+                # Search name, depth, nodes expanded
+                node.print_board(node.board)
+                return ["BFS", node.depth, nodes_expanded]
+            
+            node.print_board(node.board)
+            for child in node.get_children_nodes():
+                fringe_nodes.append(child)
+            
+            nodes_expanded += 1
+            
+
+        else:
+            return None
+
+
+def bfs_graph(start_node):
+    fringe_nodes = deque([]) # Queue of nodes
+    visited_nodes = {}
+    fringe_nodes.append(start_node)
+    nodes_expanded = 0
+
+    while True:
+        if len(fringe_nodes) == 0:
+            print("Solution not found")
+            return None
+        
+        node = fringe_nodes.popleft()
+        visited_nodes[str(node.board)] = 1
+
+        if node.check_goal(node.board):
+            # Search name, depth, nodes expanded
+            node.print_board(node.board)
+            return ["BFS_Graph", node.depth, nodes_expanded]
+        
+        node.print_board(node.board)
+
+        for child in node.get_children_nodes():
+            if visited_nodes.get(str(child.board)) is None:
+                fringe_nodes.append(child)
+        
+        nodes_expanded += 1
+
+
+def depth_limited(start_node, depth):
+    fringe_nodes = [start_node] # Stack of nodes
+    nodes_expanded = 0
+
+    if len(fringe_nodes) == 0:
+        print("Solution not found")
+        return None
+        
+    while len(fringe_nodes) > 0:
+        node = fringe_nodes.pop()
+        if node.check_goal(node.board):
+            # Search name, depth, nodes expanded
+            node.print_board(node.board)
+            return node, nodes_expanded, True
+
+        if node.depth < depth:
+            node.print_board(node.board)
+            children_nodes = node.get_children_nodes()
+            for child in children_nodes:
+                fringe_nodes.append(child)
+
+            nodes_expanded += 1
+
+
+def iterative_deepening(start_node, limit):
+    for i in range(limit):
+        print(i)
+        node, nodes_expanded, goal = depth_limited(start_node, limit)
+        if goal:
+            break
+    return ["IDS", node.depth, nodes_expanded]
+    
+
+def a_star_graph(start_node, h):
+    visited_nodes = {}
+    fringe_nodes = Q()
+    nodes_expanded = 0
+
+    fringe_nodes.put((start_node.get_man_heuristic(), start_node))
+
+    if fringe_nodes.qsize() == 0:
+        print("Solution not found")
+        return None
+    
+    while fringe_nodes.qsize()  > 0:
+        node = fringe_nodes.get()[1]
+        visited_nodes[str(node.board)] = 1
+        
+        node.print_board(node.board)
+
+        if node.check_goal(node.board):
+            # Search name, depth, nodes expanded
+            node.print_board(node.board)
+            return ["A* Graph", node.depth, nodes_expanded]
+        
+        node.print_board(node.board)
+        children = node.get_children_nodes()
+        nodes_expanded += 1
+
+        for child in children:
+            if visited_nodes.get(str(child.board)) is not None:
+                continue
+            if h == "m":
+                fringe_nodes.put((child.depth + child.get_man_heuristic(), child))
+            if h == "c":
+                fringe_nodes.put((child.depth + child.get_cheb_heuristic(), child))
+    
+
+def a_star(start_node, h):
+    fringe_nodes = Q()
+    nodes_expanded = 0
+    fringe_nodes.put((start_node.get_man_heuristic(), start_node))
+
+    if fringe_nodes.qsize() == 0:
+        print("Solution not found")
+        return None
+    
+    while fringe_nodes.qsize() > 0:
+        node = fringe_nodes.get()[1]
+
+        if node.check_goal(node.board):
+            node.print_board(node.board)
+            return ["A*", node.depth, nodes_expanded]
+    
+        node.print_board(node.board)
+        children = node.get_children_nodes()
+        nodes_expanded += 1
+
+        for child in children:
+            if h == "m":
+                fringe_nodes.put((child.depth + child.get_man_heuristic(), child))
+            if h == "c":
+                fringe_nodes.put((child.depth + child.get_cheb_heuristic(), child))
+   
+  \end{lstlisting}
+
+  \subsection{Test.py}
+  \begin{lstlisting}
+    from Node import Node
+    from Search import dfs, dfs_graph, bfs, bfs_graph, iterative_deepening, a_star, a_star_graph
+    import time
+    
+    
+    states = []
+    
+    states.append([[0,0,0,0],[0,'*','A',0],[0,'B',0,0],[0,'C',0,0]]) #depth 1
+    states.append([[0,0,0,0],['*',0,'A',0],[0,'B',0,0],[0,'C',0,0]]) #depth 2
+    states.append([['*',0,0,0],[0,0,'A',0],[0,'B',0,0],[0,'C',0,0]]) #depth 3
+    states.append([[0,0,0,0],[0,0,'A',0],[0,'B',0,0],['*','C',0,0]]) #depth 4
+    states.append([[0,0,0,0],['A',0,0,0],[0,'B',0,0],[0,'C',0,'*']]) #depth 5
+    states.append([[0,0,0,0],[0,0,'A',0],[0,'B',0,0],['C',0,'*',0]]) #depth 6
+    states.append([[0,0,0,0],[0,0,'A',0],['B',0,0,0],[0,'C',0,'*']]) #depth 7
+    states.append([[0,0,0,0],[0,'A',0,0],[0,'C',0,'B'],[0,0,0,'*']]) #depth 8
+    states.append([['*',0,0,0],[0,0,'A',0],['B',0,0,0],[0,0,'C',0]]) #depth 9
+    states.append([[0,0,0,0],[0,'A',0,0],[0,0,0,'B'],['C',0,0,'*']]) #depth 10
+    states.append([[0,'A',0,0],[0,0,0,0],[0,'B','C',0],[0,0,0,'*']]) #depth 11
+    states.append([['A',0,0,0],[0,0,0,0],['B',0,0,'*'],[0,0,'C',0]]) #depth 12
+    states.append([['A',0,0,0],[0,0,0,0],[0,'B','C',0],[0,0,0,'*']]) #depth 13
+    states.append([[0,0,0,0],[0,0,0,0],[0,0,0,0],['A','B','C','*']]) #depth 14
+    
+    
+    def find_block(board, block):
+            for i in range(len(board)):
+                if block in board[i]:
+                    return i, board[i].index(block)
+                else:
+                    continue
+    
+    
+    
+    
+    for j in range(len(states)):
+        row, column = find_block(states[j],"*")
+        node = Node(states[j],row,column,None,None)
+        res = a_star_graph(node, "m")
+        print(j+1, ",", res[0], ",", res[1], ",", res[2])
+    
+    
+    for j in range(len(states)):
+        row, column = find_block(states[j],"*")
+        node = Node(states[j],row,column,None,None)
+        res = a_star(node, "m")
+        print(j+1, ",", res[0], ",", res[1], ",", res[2])
+    
+    
+    for i in range(10):
+        for j in range(len(states)):
+            row, column = find_block(states[j],"*")
+            node = Node(states[j],row,column,None,None)
+            res = dfs(node)
+            print(j+1, ",", res[0], ",", res[1], ",", res[2])
+    
+    
+    for i in range(10):
+        for j in range(len(states)):
+            row, column = find_block(states[j],"*")
+            node = Node(states[j],row,column,None,None)
+            res = dfs_graph(node)
+            print(j+1, ",", res[0], ",", res[1], ",", res[2])
+    
+    
+    for i in range(10):
+        for j in range(len(states)):
+            row, column = find_block(states[j],"*")
+            node = Node(states[j],row,column,None,None)
+            res = bfs_graph(node)
+            print(j+1, ",", res[0], ",", res[1], ",", res[2])
+    
+    
+    for i in range(10):
+        for j in range(len(states)):
+            row, column = find_block(states[j],"*")
+            node = Node(states[j],row,column,None,None)
+            res = iterative_deepening(node,j+1)
+            print(j+1, ",", res[0], ",", res[1], ",", res[2])
+    
+    
+    for i in range(10):
+        for j in range(len(states)):
+            row, column = find_block(states[j],"*")
+            node = Node(states[j],row,column,None,None)
+            res = bfs(node)
+            if res is None:
+                print(j+1, ",", None, ",", None, ",", None)
+            else:
+                print(j+1, ",", res[0], ",", res[1], ",", res[2])
+    
+  \end{lstlisting}
+
+
 
 
 

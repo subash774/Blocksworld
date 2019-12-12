@@ -14,10 +14,11 @@ def dfs(start_node):
         node = fringe_nodes.pop()
         
         if node.check_goal(node.board):
+            node.print_board(node.board)
             # Search name, depth, nodes expanded
             return ["DFS", node.depth, nodes_expanded]
 
-
+        node.print_board(node.board)
         children_nodes = node.get_children_nodes()
         for child in children_nodes:
             fringe_nodes.append(child)
@@ -40,7 +41,7 @@ def dfs_graph(start_node):
             # Search name, depth, nodes expanded
             return ["DFS Graph", node.depth, nodes_expanded]
 
-
+        node.print_board(node.board)
         children_nodes = node.get_children_nodes()
         for child in children_nodes:
             if visited_nodes.get(str(child.board)) is None:
@@ -114,14 +115,15 @@ def depth_limited(start_node, depth):
         return None
         
     while len(fringe_nodes) > 0:
-        
         node = fringe_nodes.pop()
-
         if node.check_goal(node.board):
             # Search name, depth, nodes expanded
+            node.print_board(node.board)
             return node, nodes_expanded, True
 
         if node.depth < depth:
+            print(node.depth)
+            node.print_board(node.board)
             children_nodes = node.get_children_nodes()
             for child in children_nodes:
                 fringe_nodes.append(child)
@@ -149,19 +151,17 @@ def a_star_graph(start_node, h):
         return None
     
     while fringe_nodes.qsize()  > 0:
-    # for i in range(5):
         node = fringe_nodes.get()[1]
-        # node.print_board(node.board)
         visited_nodes[str(node.board)] = 1
         
-        # node.print_board(node.board)
+        node.print_board(node.board)
 
         if node.check_goal(node.board):
             # Search name, depth, nodes expanded
-            # node.print_board(node.board)
+            node.print_board(node.board)
             return ["A* Graph", node.depth, nodes_expanded]
         
-        
+        node.print_board(node.board)
         children = node.get_children_nodes()
         nodes_expanded += 1
 
@@ -184,15 +184,13 @@ def a_star(start_node, h):
         return None
     
     while fringe_nodes.qsize() > 0:
-    # for i in range(5):
         node = fringe_nodes.get()[1]
 
         if node.check_goal(node.board):
-            # Search name, depth, nodes expanded
-            # node.print_board(node.board)
+            node.print_board(node.board)
             return ["A*", node.depth, nodes_expanded]
     
-        
+        node.print_board(node.board)
         children = node.get_children_nodes()
         nodes_expanded += 1
 
