@@ -12,7 +12,7 @@ def dfs(start_node):
             return None
         
         node = fringe_nodes.pop()
-
+        
         if node.check_goal(node.board):
             # Search name, depth, nodes expanded
             return ["DFS", node.depth, nodes_expanded]
@@ -21,7 +21,6 @@ def dfs(start_node):
         children_nodes = node.get_children_nodes()
         for child in children_nodes:
             fringe_nodes.append(child)
-
         nodes_expanded += 1
 
 
@@ -64,12 +63,16 @@ def bfs(start_node):
 
             if node.check_goal(node.board):
                 # Search name, depth, nodes expanded
+                node.print_board(node.board)
                 return ["BFS", node.depth, nodes_expanded]
             
+            node.print_board(node.board)
             for child in node.get_children_nodes():
                 fringe_nodes.append(child)
             
             nodes_expanded += 1
+            
+
         else:
             return None
 
@@ -90,8 +93,11 @@ def bfs_graph(start_node):
 
         if node.check_goal(node.board):
             # Search name, depth, nodes expanded
+            node.print_board(node.board)
             return ["BFS_Graph", node.depth, nodes_expanded]
         
+        node.print_board(node.board)
+
         for child in node.get_children_nodes():
             if visited_nodes.get(str(child.board)) is None:
                 fringe_nodes.append(child)

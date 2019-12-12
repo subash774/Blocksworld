@@ -50,6 +50,7 @@ class Node:
                 vertical_dash = vertical_dash + str(j) + " | "
             print(vertical_dash)
             print("-----------------")
+        print("")
 
      
 

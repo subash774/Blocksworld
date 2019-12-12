@@ -10,6 +10,7 @@ initial_state = [
     ["A", "B", "C", "*"]
 ]
 
+initial_state = [[0,0,0,0],['*',0,'A',0],[0,'B',0,0],[0,'C',0,0]]
 # initial_state = [[0,0,0,0],[0,0,'A',0],[0,'B',0,0],['*','C',0,0]]
 # initial_state = [[0,'A',0,0],
 #                 [0,0,0,0],
@@ -24,5 +25,7 @@ node = Node(initial_state, 3, 3, None, None)
 # print(a_star_graph(node, "m"))
 # print(a_star(node, "m"))
 
-print(bfs(node))
+# node.print_board(node.board)
+bfs_graph(node)
+# print(bfs(node))
 
