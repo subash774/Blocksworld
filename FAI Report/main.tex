@@ -122,7 +122,7 @@
 
   \section{Approach}
   \paragraph{} \indent
-  After a number of design iterations focusing on the generic code structure to solve the problem along with its adaptability, I settled on the following design. Keep separation of concern in mind, I divided my code structure intro three scripts. One class and the others two merely to make use of that main class: Node. As my favourite programming language and the fact that this problem could be solved with functional-OOP hybrid approach, my language of choosing was Python. Blocksworld is a puzzle that examines the foundations of computer science: data structures and algorithms. Therefore, I’ve not made use of any external libraries making the only dependency python runtime environment itself.
+  After a number of design iterations focusing on the generic code structure to solve the problem along with its adaptability, I settled on the following design. Keeping separation of concern in mind, I divided my code structure intro three scripts. One class and the others two merely to make use of that main class: Node. As my favourite programming language and the fact that this problem could be solved with functional-OOP hybrid approach, my language of choosing was Python. Blocksworld is a puzzle that examines the foundations of computer science: data structures and algorithms. Therefore, I’ve not made use of any external libraries making the only dependency Python runtime environment itself.
 
   \subsection{Node}
   \paragraph{} \indent
@@ -130,7 +130,7 @@
   
   Although my first thought was to use a single array to store all 16 blocks, I realised it would essentially make no difference in look up times. Dictionaries are the best data structures to go with when it comes to the efficiency of look up times, however, the memory occupied by the dictionary was unnecessarily big. Node class also housed methods such as find\_block, check\_goal\_state and move\_agent.\\
 
-  To solve this puzzle, the agent (empty space) is thought to be an element that moves around the world rather than all other blocks moving their positions. This makes the idea simpler when programming. As python uses `pass by reference' approach, I had to make use of inbuilt library: deepcopy. Node class was my favourite part of the system to code as it housed the integral logics of the Blocksworld. For example, what if the agent was at the bottom right corner and it was asked to move down or right? These logical tasks made designing the class enjoyable.\\
+  To solve this puzzle, the agent (empty space) is thought to be an element that moves around the world rather than all other blocks moving their positions. This makes the idea simpler when programming. As Python uses `pass by reference' approach, I had to make use of inbuilt library: deepcopy. Node class was my favourite part of the system to code as it housed the integral logics of the Blocksworld. For example, what if the agent was at the bottom right corner and it was asked to move down or right? These logical tasks made designing the class enjoyable.\\
 
   As an extra, I also made the world adaptable blocked nodes (represented by `X'). i.e. blocks that cannot be moved, increasing or decreasing the difficulty of search in some cases. 
 
@@ -280,7 +280,13 @@ Apart from Node and Search, my only other script is Test where I call functions 
   \paragraph{} \indent
   If I had more time, I’d have liked to explore the problem further, increasing the depth to more than 14 to compare different search strategies. I’d also include more searches such as bidirectional search and most interestingly, Iterative deepening A* search as it claims to ``keep the memory usage lower than in A*'' \cite{ida*}. In terms of the Blocksworld puzzle itself, I'd have liked if the search problem wasn't limited to a 4 x 4 grid; I'd make the grid adaptable to any sizes. Although heuristics other than Manhattan distance was studied, implementation of Chebyshev distance \cite{chev} was not functional, I'd have loved to expand on that to see the difference in performance against manhattan distance. 
 
-  Other than what was required by the coursework specification, I implemented graph searches to be compared against tree searches. It was helpful to visualise how space time complexity trade off would result in better performance in certain cases. I also added blocks in the world which could not be moved. This, based on the placement made the search problem sometimes more complex and easier the other times. If I had more time I'd have compared the performance with and without blocks with different algorithms.
+  Other than what was required by the coursework specification, I implemented graph searches to be compared against tree searches. It was helpful to visualise how space time complexity trade off would result in better performance in certain cases. I also added blocks in the world which could not be moved (shown below). This, based on the placement made the search problem sometimes more complex and easier the other times. If I had more time I'd have compared the performance with and without blocks with different algorithms.
+  
+  \begin{center}
+    \begin{tabular}{cc}
+    \includegraphics[width=0.55\textwidth]{images/blocks.png} \\
+      \end{tabular}
+    \end{center}
 
 
   %%%%%%% Bibliografía %%%%%%%%
@@ -290,7 +296,7 @@ Apart from Node and Search, my only other script is Test where I call functions 
 %%%%%%% Bibliografía %%%%%%%%    
 
   \section{Code}
-  All code snippets and data analysis can be found at: \url{www.test.com}
+  All code snippets and data analysis can be found at: \url{https://github.com/subash774/Blocksworld}
   \subsection{Node.py}
   \begin{lstlisting}
 import copy

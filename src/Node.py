@@ -61,13 +61,13 @@ class Node:
             "left" : True,
             "right" : True
         }
-        if agent_row - 1 < 0 or board[agent_row][agent_column] == "X":
+        if agent_row - 1 < 0 or board[agent_row -1][agent_column] == "X":
             possible["up"] = False
-        if agent_row + 1 > 3 or board[agent_row][agent_column] == "X":
+        if agent_row + 1 > 3 or board[agent_row+1][agent_column] == "X":
             possible["down"] = False
-        if agent_column - 1 < 0 or board[agent_row][agent_column] == "X":
+        if agent_column - 1 < 0 or board[agent_row][agent_column-1] == "X":
             possible["left"] = False
-        if agent_column + 1 > 3 or board[agent_row][agent_column] == "X":
+        if agent_column + 1 > 3 or board[agent_row][agent_column+1] == "X":
             possible["right"] = False
         
         return possible

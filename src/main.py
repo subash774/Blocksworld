@@ -10,7 +10,7 @@ initial_state = [
     ["A", "B", "C", "*"]
 ]
 
-initial_state = [[0,0,0,0],['*',0,'A',0],[0,'B',0,0],[0,'C',0,0]]
+initial_state = [['X',0,0,0],['*',0,'A',0],[0,'B',0,0],[0,'C',0,0]]
 # initial_state = [[0,0,0,0],[0,0,'A',0],[0,'B',0,0],['*','C',0,0]]
 # initial_state = [[0,'A',0,0],
 #                 [0,0,0,0],
@@ -27,6 +27,6 @@ node = Node(initial_state, 3, 3, None, None)
 
 # node.print_board(node.board)
 # iterative_deepening(node,2)
-iterative_deepening(node, 2)
+# iterative_deepening(node, 2)
 # print(bfs(node))
-# a_star(node, "m")
+a_star(node, "m")
